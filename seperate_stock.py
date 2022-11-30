@@ -4,9 +4,10 @@ from time import sleep
 from selenium.webdriver.common.by import By
 import pandas as pd
 from datetime import datetime, timedelta
+import sys
 
 #variables
-prefix = 'fpt' #change your stock here
+prefix = sys.argv[1] #stock code from terminal
 prefix = prefix.upper()
 url = f"https://finance.vietstock.vn/{prefix}/thong-ke-giao-dich.htm"
 
@@ -105,6 +106,7 @@ try:
     newdf = pd.DataFrame(data=tempCols)
     newdf.to_excel(f'./sep_stock/{prefix}.xlsx', index=False)
     print('DONE')
+    driver.quit()
 except Exception as e:
     print("something wrong")
     print(e)
